@@ -1,6 +1,7 @@
 global:
   toolsImage: registry.redhat.io/openshift4/ose-tools-rhel9:v4.17.0-202606230157.p2.gd76df14.assembly.stream.el9
   clusterBaseUrl: ''
+  serviceCABundle: ''
 
 installPlanApproval: &installPlanApproval Manual
 kueue: &kueue "Unmanaged"
@@ -36,7 +37,7 @@ configuration:
   inferenceApp:
     installPlanApproval: *installPlanApproval
     rhclVersion: rhcl-operator.v1.4.1
-    certManagerCertSecret: cert-manager-ingress-cert
+    maasIngressCertSecret: cert-manager-ingress-cert
 
   infrastructureApp:
     installPlanApproval: *installPlanApproval
