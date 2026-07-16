@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/davidc-dev/rhoai-argo.git
     path: argocd-applications
-    targetRevision: maas-sno
+    targetRevision: maas-aro
     helm:
       valuesObject:
         global:
