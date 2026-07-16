@@ -3,6 +3,8 @@ kind: ConfigMap
 metadata:
   name: maas-default-gateway-config
   namespace: openshift-ingress
+  annotations:
+    argocd.argoproj.io/sync-wave: "16"
 data:
   service: |
     metadata:
