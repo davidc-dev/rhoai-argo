@@ -13,7 +13,7 @@ spec:
   source:
     path: helm/workload-scaling
     repoURL: https://github.com/davidc-dev/rhoai-argo.git
-    targetRevision: maas-sno
+    targetRevision: maas-aro
     helm:
       valuesObject:
         global:
