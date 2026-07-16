@@ -19,10 +19,12 @@ oc get configmap signing-cabundle -n openshift-service-ca \
   -o jsonpath='{.data.ca-bundle\.crt}' > "$SERVICE_CA_FILE"
 
 yq -i ".spec.source.helm.valuesObject.global.clusterBaseUrl = \"$BASE_URL\"" "$NEWFILE"
-yq -i ".spec.source.helm.valuesObject.global.serviceCABundle = load_str(\"$SERVICE_CA_FILE\")" "$NEWFILE"
+# Literal block style preserves PEM newlines. Single-quoted multi-line YAML folds
+# them to spaces, which breaks OpenShift destinationCACertificate parsing.
+yq -i "
+  .spec.source.helm.valuesObject.global.serviceCABundle = load_str(\"$SERVICE_CA_FILE\") |
+  .spec.source.helm.valuesObject.global.serviceCABundle style=\"literal\"
+" "$NEWFILE"
 rm -f "$SERVICE_CA_FILE"
-
-# yq load_str inserts blank lines between PEM lines; keep indentation, drop empties
-sed -i '' '/^$/d' "$NEWFILE"
 
 oc apply -f "$NEWFILE"
